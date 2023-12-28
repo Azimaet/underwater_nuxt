@@ -10,7 +10,8 @@
     "postinstall": "nuxt prepare"
   },
   "devDependencies": {
-    "@nuxt/devtools": "latest",
+    "@nuxt/devtools": "^1.0.6",
+    "@nuxtjs/i18n": "^8.0.0",
     "@pandacss/dev": "^0.23.0",
     "nuxt": "^3.7.3"
   },

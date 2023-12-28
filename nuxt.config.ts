@@ -4,9 +4,12 @@ const { resolve } = createResolver(import.meta.url);
 
 export default defineNuxtConfig({
   devtools: { enabled: true },
-  modules: ["@pinia/nuxt"],
+  modules: ["@pinia/nuxt", "@nuxtjs/i18n"],
   alias: {
     "styled-system": resolve("./styled-system"),
+  },
+  i18n: {
+    /* module options */
   },
 
   css: ["@/assets/css/global.css"],
