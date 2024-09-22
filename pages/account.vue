@@ -1,9 +1,9 @@
 <script setup lang="ts">
 // const { locale } = useI18n();
 
-console.log("index page");
+console.log("account page");
 </script>
 
 <template>
-  <h1>Index page</h1>
+  <h1>Account page</h1>
 </template>
