@@ -1,10 +1,26 @@
+import vuetify, { transformAssetUrls } from "vite-plugin-vuetify";
+
 // https://nuxt.com/docs/api/configuration/nuxt-config
 import { createResolver } from "@nuxt/kit";
+
 const { resolve } = createResolver(import.meta.url);
 
 export default defineNuxtConfig({
+  pages: true,
   devtools: { enabled: true },
-  modules: ["@pinia/nuxt", "@nuxtjs/i18n"],
+  build: {
+    transpile: ["vuetify"],
+  },
+  modules: [
+    (_options, nuxt) => {
+      nuxt.hooks.hook("vite:extendConfig", (config) => {
+        // @ts-expect-error
+        config.plugins.push(vuetify({ autoImport: true }));
+      });
+    },
+    "@pinia/nuxt",
+    "@nuxtjs/i18n",
+  ],
   alias: {
     "styled-system": resolve("./styled-system"),
   },
@@ -14,5 +30,14 @@ export default defineNuxtConfig({
     defaultLocale: "en", // default locale of your project for Nuxt pages and routings
   },
 
-  css: ["@/assets/css/global.css"],
+  css: [
+    "vuetify/styles", // Add this to import Vuetify's styles
+  ],
+  vite: {
+    vue: {
+      template: {
+        transformAssetUrls,
+      },
+    },
+  },
 });
