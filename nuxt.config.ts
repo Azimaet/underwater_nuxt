@@ -15,10 +15,4 @@ export default defineNuxtConfig({
   },
 
   css: ["@/assets/css/global.css"],
-
-  postcss: {
-    plugins: {
-      "@pandacss/dev/postcss": {},
-    },
-  },
 });
