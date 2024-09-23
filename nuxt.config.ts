@@ -24,6 +24,11 @@ export default defineNuxtConfig({
   alias: {
     "styled-system": resolve("./styled-system"),
   },
+  runtimeConfig: {
+    public: {
+      apiBase: process.env.API_BASE,
+    },
+  },
   i18n: {
     vueI18n: "./i18n.config.ts", // if you are using custom path, default
     locales: ["en", "fr"], // used in URL path prefix
@@ -39,5 +44,8 @@ export default defineNuxtConfig({
         transformAssetUrls,
       },
     },
+  },
+  pinia: {
+    storesDirs: ["./stores/**"],
   },
 });
