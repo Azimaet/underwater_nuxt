@@ -8,26 +8,31 @@ const { $api } = useNuxtApp();
 const credentials = ref({
   email: "john@doe.fr",
   password: "00000000",
+  isRememberMe: true,
 });
 
-// const { data: user, error } = await useFetch($api("/login"), {
-//   method: "POST",
-//   body: credentials.value,
-// });
+const error = ref(null);
 
-const { data: user, error } = await useFetch($api("/login"), {
-  method: "POST",
-  body: credentials.value,
-});
+const login = async () => {
+  try {
+    const { data: user, error: fetchError } = await useFetch($api("/login"), {
+      method: "POST",
+      body: credentials.value,
+      credentials: "include", // This ensures cookies/sessions are sent with the request
+    });
 
-const logout = await useFetch($api("/logout"));
+    console.log("hello");
 
-console.log($api("/login"));
-console.log(user);
+    console.log(user);
+  } catch (e) {
+    console.error("Login failed:", e);
+  }
+};
 </script>
 
 <template>
   <div class="text-center pa-4">
+    <button @click="login">LOGIN</button>
     <v-dialog v-model="isLoginDialogOpen" max-width="400" persistent>
       <template v-slot:activator="{ props: activatorProps }">
         <v-btn v-bind="activatorProps"> Open Dialog </v-btn>
