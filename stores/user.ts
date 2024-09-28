@@ -1,16 +1,18 @@
-import type { ILoginResponse } from "~/types/responses/Login";
-import type { IUser } from "~/types/User";
+import type { ILoginResponse } from "~/types/api/Login";
 import { defineStore } from "pinia";
 import { ref } from "vue";
+import { useAlertsStore } from "~/stores/alerts";
 
 export const useUserStore = defineStore("user", () => {
   const { $api } = useNuxtApp();
+  const alertsStore = useAlertsStore();
 
   /* State */
   const username = ref<string | null>(null);
   const email = ref<string | null>(null);
 
   /* Getters */
+  const isAuth = computed(() => !!email.value);
 
   /* Actions */
   /**
@@ -30,16 +32,27 @@ export const useUserStore = defineStore("user", () => {
         credentials: "include",
       });
 
-      if (data.value?.user) {
-        username.value = data.value.user.username;
-        email.value = data.value.user.email;
-      } else {
-        console.error("No user data returned");
-      }
+      if (!data?.value?.user) return;
+
+      username.value = data.value.user.username;
+      email.value = data.value.user.email;
+
+      alertsStore.pushAlert({
+        title: "Bienvenue " + username.value,
+        type: "success",
+        closable: true,
+        timestamp: Date.now(),
+      });
     } catch (e) {
-      console.error("Login failed:", e);
+      alertsStore.pushAlert({
+        title: "Erreur",
+        text: "e",
+        type: "error",
+        closable: true,
+        timestamp: Date.now(),
+      });
     }
   }
 
-  return { username, email, authenticate };
+  return { username, email, isAuth, authenticate };
 });

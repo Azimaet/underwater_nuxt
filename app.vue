@@ -1,6 +1,4 @@
-<script setup lang="ts">
-console.log("app"); //
-</script>
+<script setup lang="ts"></script>
 
 <template>
   <v-app>

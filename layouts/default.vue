@@ -1,3 +1,5 @@
 <template>
   <slot />
+
+  <AlertsBucket />
 </template>

@@ -8,9 +8,11 @@ const { resolve } = createResolver(import.meta.url);
 export default defineNuxtConfig({
   pages: true,
   devtools: { enabled: true },
+
   build: {
     transpile: ["vuetify"],
   },
+
   modules: [
     (_options, nuxt) => {
       nuxt.hooks.hook("vite:extendConfig", (config) => {
@@ -21,14 +23,17 @@ export default defineNuxtConfig({
     "@pinia/nuxt",
     "@nuxtjs/i18n",
   ],
+
   alias: {
     "styled-system": resolve("./styled-system"),
   },
+
   runtimeConfig: {
     public: {
       apiBase: process.env.API_BASE,
     },
   },
+
   i18n: {
     vueI18n: "./i18n.config.ts", // if you are using custom path, default
     locales: ["en", "fr"], // used in URL path prefix
@@ -38,6 +43,7 @@ export default defineNuxtConfig({
   css: [
     "vuetify/styles", // Add this to import Vuetify's styles
   ],
+
   vite: {
     vue: {
       template: {
@@ -45,7 +51,17 @@ export default defineNuxtConfig({
       },
     },
   },
+
   pinia: {
     storesDirs: ["./stores/**"],
   },
+
+  compatibilityDate: "2024-09-28",
+
+  components: [
+    {
+      path: "~/components",
+      pathPrefix: false,
+    },
+  ],
 });
