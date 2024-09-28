@@ -1,38 +1,20 @@
 <script setup lang="ts">
+import { useUserStore } from "@/stores/user";
+
 const props = defineProps<{}>();
-
+const store = useUserStore();
 const isLoginDialogOpen = ref(false);
-
-const { $api } = useNuxtApp();
 
 const credentials = ref({
   email: "john@doe.fr",
   password: "00000000",
   isRememberMe: true,
 });
-
-const error = ref(null);
-
-const login = async () => {
-  try {
-    const { data: user, error: fetchError } = await useFetch($api("/login"), {
-      method: "POST",
-      body: credentials.value,
-      credentials: "include", // This ensures cookies/sessions are sent with the request
-    });
-
-    console.log("hello");
-
-    console.log(user);
-  } catch (e) {
-    console.error("Login failed:", e);
-  }
-};
 </script>
 
 <template>
   <div class="text-center pa-4">
-    <button @click="login">LOGIN</button>
+    <button @click="store.authenticate(credentials)">LOGIN</button>
     <v-dialog v-model="isLoginDialogOpen" max-width="400" persistent>
       <template v-slot:activator="{ props: activatorProps }">
         <v-btn v-bind="activatorProps"> Open Dialog </v-btn>
