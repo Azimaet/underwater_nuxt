@@ -1,10 +1,11 @@
+import type { ILoginResponse } from "~/types/responses/Login";
 import type { IUser } from "~/types/User";
 import { defineStore } from "pinia";
 import { ref } from "vue";
 
-const { $api } = useNuxtApp();
-
 export const useUserStore = defineStore("user", () => {
+  const { $api } = useNuxtApp();
+
   /* State */
   const username = ref<string | null>(null);
   const email = ref<string | null>(null);
@@ -23,15 +24,15 @@ export const useUserStore = defineStore("user", () => {
     isRememberMe: boolean;
   }): Promise<void> {
     try {
-      const { data } = await useFetch<IUser>($api("/login"), {
+      const { data } = await useFetch<ILoginResponse>($api("/login"), {
         method: "POST",
         body: credentials,
         credentials: "include",
       });
 
-      if (data.value) {
-        username.value = data.value.username;
-        email.value = data.value.email;
+      if (data.value?.user) {
+        username.value = data.value.user.username;
+        email.value = data.value.user.email;
       } else {
         console.error("No user data returned");
       }
