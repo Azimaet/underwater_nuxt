@@ -13,6 +13,7 @@
     "@nuxtjs/i18n": "^8.0.0",
     "@types/node": "^18.17.5",
     "nuxt": "^3.7.3",
+    "sass": "^1.79.4",
     "vite-plugin-vuetify": "^2.0.4",
     "vuetify": "^3.7.2"
   },
