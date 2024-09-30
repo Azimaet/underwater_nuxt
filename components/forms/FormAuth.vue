@@ -1,10 +1,8 @@
 <script setup lang="ts">
-import { useNavigationStore } from "@/stores/navigation";
-import { useUserStore } from "@/stores/user";
+import { useSignIn } from "~/composables/auth/useSignIn";
 
 const navigationStore = useNavigationStore();
-const userStore = useUserStore();
-
+const alertsStore = useAlertsStore();
 const isPasswordVisible = ref(false);
 const credentials = ref({
   email: null,
@@ -29,9 +27,9 @@ const credentials = ref({
       placeholder="Email address"
       prepend-inner-icon="mdi-email-outline"
       variant="outlined"
-      :error="userStore?.fieldsErrors?.find((err) => err.field === 'email')"
+      :error="alertsStore?.fieldsErrors?.find((err) => err.field === 'email')"
       :error-messages="
-        userStore?.fieldsErrors?.find((err) => err.field === 'email')?.message
+        alertsStore?.fieldsErrors?.find((err) => err.field === 'email')?.message
       "
     ></v-text-field>
 
@@ -58,9 +56,11 @@ const credentials = ref({
       placeholder="Enter your password"
       prepend-inner-icon="mdi-lock-outline"
       variant="outlined"
-      :error="userStore?.fieldsErrors?.find((err) => err.field === 'password')"
+      :error="
+        alertsStore?.fieldsErrors?.find((err) => err.field === 'password')
+      "
       :error-messages="
-        userStore?.fieldsErrors?.find((err) => err.field === 'password')
+        alertsStore?.fieldsErrors?.find((err) => err.field === 'password')
           ?.message
       "
       @click:append-inner="isPasswordVisible = !isPasswordVisible"
@@ -70,10 +70,10 @@ const credentials = ref({
       v-model="credentials.isRememberMe"
       label="Remember Me"
       :error="
-        userStore?.fieldsErrors?.find((err) => err.field === 'isRememberMe')
+        alertsStore?.fieldsErrors?.find((err) => err.field === 'isRememberMe')
       "
       :error-messages="
-        userStore?.fieldsErrors?.find((err) => err.field === 'isRememberMe')
+        alertsStore?.fieldsErrors?.find((err) => err.field === 'isRememberMe')
           ?.message
       "
     ></v-checkbox>
@@ -90,7 +90,7 @@ const credentials = ref({
       size="large"
       variant="tonal"
       block
-      @click="userStore.authenticate(credentials)"
+      @click="useSignIn(credentials)"
     >
       Log In
     </v-btn>

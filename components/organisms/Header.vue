@@ -40,7 +40,7 @@ onMounted(() => {
               <v-icon icon="$accountCircle" />
             </v-avatar>
           </v-badge>
-          <v-btn color="error" :size="'default'">
+          <v-btn color="error" :size="'default'" @click="userStore.logout()">
             <!--           @click="useAuthLogout(), useAlertFactory('success', LOGOUT_ACCOUNT)"
  -->
             Logout

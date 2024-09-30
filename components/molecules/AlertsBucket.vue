@@ -7,7 +7,7 @@ const store = useAlertsStore();
 <template>
   <ul>
     <Alert
-      v-for="alert in store.bucket"
+      v-for="alert in store.alertsBucket"
       :alert="alert"
       :key="alert.timestamp"
     />

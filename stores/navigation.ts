@@ -1,10 +1,10 @@
 import { defineStore } from "pinia";
 import { ref } from "vue";
-import { useUserStore } from "~/stores/user";
+import { useAlertsStore } from "~/stores/alerts";
 
 export const useNavigationStore = defineStore("navigation", () => {
   /* Inits */
-  const userStore = useUserStore();
+  const alertsStore = useAlertsStore();
 
   /* State */
   const isMenuOpen = ref<boolean>(false);
@@ -29,7 +29,7 @@ export const useNavigationStore = defineStore("navigation", () => {
    * @return { void }
    */
   function toggleModalAuth(action: "OPEN" | "CLOSE" | null = null): void {
-    userStore.resetFieldsErrors();
+    alertsStore.resetFieldsErrors();
     if (!action) isModalAuthOpen.value = !isModalAuthOpen.value;
 
     isModalAuthOpen.value = action === "OPEN" ? true : false;

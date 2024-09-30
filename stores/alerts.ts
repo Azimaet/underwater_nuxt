@@ -1,17 +1,27 @@
 import type { IAlert } from "~/types/frontend/Alert";
+import type { IFieldError } from "~/types/frontend/FieldError";
 
 export const useAlertsStore = defineStore("alerts", () => {
   /* State */
-  const bucket = ref([] as IAlert[]);
+  const alertsBucket = ref([] as IAlert[]);
+  const fieldsErrors = ref([] as IFieldError[]);
 
   /* Actions */
+  /**
+   * Reset Errors
+   * @return { void }
+   */
+  function resetFieldsErrors(): void {
+    fieldsErrors.value = [];
+  }
+
   /**
    * Push Alert Method
    * @param { IAlert } alert
    * @return { void }
    */
   function pushAlert(alert: IAlert): void {
-    bucket.value.push(alert);
+    alertsBucket.value.push(alert);
 
     // Set timer to auto deny alert after 8 seconds
     setTimeout(() => {
@@ -25,14 +35,21 @@ export const useAlertsStore = defineStore("alerts", () => {
    * @return { void }
    */
   function denyAlert(timestamp: number): void {
-    const alert = bucket.value.find(
+    const alert = alertsBucket.value.find(
       (item: IAlert) => item.timestamp === timestamp
     );
 
     if (alert) {
-      const index = bucket.value.indexOf(alert);
-      bucket.value.splice(index, 1);
+      const index = alertsBucket.value.indexOf(alert);
+      alertsBucket.value.splice(index, 1);
     }
   }
-  return { bucket, pushAlert, denyAlert };
+
+  return {
+    alertsBucket,
+    fieldsErrors,
+    resetFieldsErrors,
+    pushAlert,
+    denyAlert,
+  };
 });

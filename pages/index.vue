@@ -6,4 +6,8 @@ console.log("index page");
 
 <template>
   <h1>Index page</h1>
+
+  <br />
+
+  <FormSignup />
 </template>
