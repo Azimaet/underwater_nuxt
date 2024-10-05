@@ -1,5 +1,6 @@
 import type { IAlert } from "~/types/frontend/Alert";
 import type { IFieldError } from "~/types/frontend/FieldError";
+import { defineStore } from "pinia";
 
 export const useAlertsStore = defineStore("alerts", () => {
   /* State */

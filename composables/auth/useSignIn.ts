@@ -3,10 +3,6 @@ import { useAlertsStore } from "~/stores/alerts";
 import { useNavigationStore } from "~/stores/navigation";
 import { useUserStore } from "~/stores/user";
 
-const alertsStore = useAlertsStore();
-const navigationStore = useNavigationStore();
-const userStore = useUserStore();
-
 /**
  * Sign In User Method
  * @param { any } credentials
@@ -18,6 +14,9 @@ export async function useSignIn(credentials: {
   isRememberMe: boolean | null;
 }): Promise<void> {
   const { $api } = useNuxtApp();
+  const alertsStore = useAlertsStore();
+  const navigationStore = useNavigationStore();
+  const userStore = useUserStore();
 
   alertsStore.resetFieldsErrors();
 

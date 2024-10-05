@@ -1,4 +1,3 @@
-import type { ILoginResponse } from "~/types/api/Login";
 import { defineStore } from "pinia";
 import { ref } from "vue";
 import { useAlertsStore } from "~/stores/alerts";

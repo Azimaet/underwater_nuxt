@@ -1,5 +1,11 @@
 export interface IFieldError {
-  field?: "email" | "username" | "password" | "isRememberMe" | undefined;
+  field?:
+    | "email"
+    | "username"
+    | "password"
+    | "isRememberMe"
+    | "passwordVerify"
+    | undefined;
   message?: string;
   rule?: string;
 }
