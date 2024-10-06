@@ -1,7 +1,16 @@
 <script setup lang="ts">
-// const { locale } = useI18n();
+const { $api } = useNuxtApp();
 
-console.log("index page");
+const headers = useRequestHeaders(["cookie"]);
+
+console.log(headers);
+
+const { data: user } = await useFetch($api("/auth"), {
+  headers,
+  credentials: "include",
+});
+
+console.log(user);
 </script>
 
 <template>

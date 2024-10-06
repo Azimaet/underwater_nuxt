@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { useUserStore } from "@/stores/user";
 import { useNavigationStore } from "@/stores/navigation";
+import { useLogout } from "~/composables/auth/useLogout";
 
 const scrollPosition = ref(0);
 const userStore = useUserStore();
@@ -40,9 +41,7 @@ onMounted(() => {
               <v-icon icon="$accountCircle" />
             </v-avatar>
           </v-badge>
-          <v-btn color="error" :size="'default'" @click="userStore.logout()">
-            <!--           @click="useAuthLogout(), useAlertFactory('success', LOGOUT_ACCOUNT)"
- -->
+          <v-btn color="error" :size="'default'" @click="useLogout()">
             Logout
           </v-btn>
         </template>

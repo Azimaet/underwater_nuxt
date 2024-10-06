@@ -13,6 +13,7 @@ export async function useLogout(): Promise<void> {
   try {
     const { status } = await useFetch($api("/logout"), {
       method: "POST",
+      credentials: "include",
     });
 
     if (status.value !== "success") {

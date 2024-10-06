@@ -1,4 +1,10 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import { useAuth } from "~/composables/auth/useAuth";
+
+onMounted(() => {
+  useAuth();
+});
+</script>
 
 <template>
   <v-app>
