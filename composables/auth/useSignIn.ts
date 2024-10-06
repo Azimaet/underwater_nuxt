@@ -42,6 +42,8 @@ export async function useSignIn(credentials: {
       });
 
       navigationStore.toggleModalAuth("CLOSE");
+
+      navigateTo("/dashboard");
     } else if (error?.value?.statusCode === 422 && status?.value === "error") {
       alertsStore.fieldsErrors = error?.value?.data?.errors;
     } else if (error?.value?.statusCode === 400 && status?.value === "error") {

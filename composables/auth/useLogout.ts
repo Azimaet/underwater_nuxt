@@ -30,6 +30,8 @@ export async function useLogout(): Promise<void> {
 
     userStore.username = null;
     userStore.email = null;
+
+    navigateTo("/");
   } catch (e) {
     alertsStore.pushAlert({
       title: "Erreur",

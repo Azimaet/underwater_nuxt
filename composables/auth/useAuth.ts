@@ -27,6 +27,8 @@ export async function useAuth(): Promise<void> {
         closable: true,
         timestamp: Date.now(),
       });
+
+      navigateTo("/dashboard");
     }
   } catch (e) {}
 }
