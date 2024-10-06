@@ -2,34 +2,30 @@
 import { useUserStore } from "@/stores/user";
 import { useNavigationStore } from "@/stores/navigation";
 import { useLogout } from "~/composables/auth/useLogout";
+import { useMenu } from "@/composables/useMenu";
 
-const scrollPosition = ref(0);
 const userStore = useUserStore();
 const navigationStore = useNavigationStore();
 
-const updateScroll = () => {
-  scrollPosition.value = window.scrollY;
-};
-
-onMounted(() => {
-  window.addEventListener("scroll", updateScroll);
-});
+const { menu } = useMenu();
 </script>
 
 <template>
-  <v-app-bar :elevation="1">
-    <template #prepend>
+  <v-app-bar flat>
+    <v-container class="mx-auto d-flex align-center justify-center">
+      <LogoType class="me-4" />
+
       <v-btn
-        variant="plain"
-        icon="$menu"
-        :size="'large'"
-        @click="navigationStore.toggleMenu('OPEN')"
-      />
-    </template>
-    <v-app-bar-title>
-      <LogoType />
-    </v-app-bar-title>
-    <template #append>
+        v-for="(link, index) in menu"
+        :key="index"
+        :to="link.path"
+        variant="text"
+      >
+        {{ link.name }}
+      </v-btn>
+
+      <v-spacer></v-spacer>
+
       <div :class="['d-flex', 'justify-center', 'align-center']">
         <template v-if="userStore.isAuth">
           <p
@@ -54,6 +50,6 @@ onMounted(() => {
           Login
         </v-btn>
       </div>
-    </template>
+    </v-container>
   </v-app-bar>
 </template>

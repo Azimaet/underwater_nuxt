@@ -5,7 +5,7 @@ const store = useAlertsStore();
 </script>
 
 <template>
-  <ul>
+  <ul :class="['position-fixed', 'right-0', 'bottom-0']">
     <Alert
       v-for="alert in store.alertsBucket"
       :alert="alert"
