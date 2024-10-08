@@ -1,3 +1,4 @@
 <template>
   <ModalFormAuth />
+  <ModalFormDive />
 </template>

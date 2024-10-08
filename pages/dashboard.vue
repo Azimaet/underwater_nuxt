@@ -1,7 +1,15 @@
 <script setup lang="ts">
+import { useNavigationStore } from "@/stores/navigation";
+
 definePageMeta({
   middleware: "auth-middleware",
 });
+
+const navigationStore = useNavigationStore();
+
+function test() {
+  console.log("szsz");
+}
 </script>
 
 <template>
@@ -22,8 +30,8 @@ definePageMeta({
 
               <v-list-item
                 color="grey-lighten-4"
-                title="Refresh"
-                link
+                title="Add Dive"
+                @click="navigationStore.toggleModalDive('OPEN')"
               ></v-list-item>
             </v-list>
           </v-sheet>

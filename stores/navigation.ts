@@ -9,6 +9,7 @@ export const useNavigationStore = defineStore("navigation", () => {
   /* State */
   const isMenuOpen = ref<boolean>(false);
   const isModalAuthOpen = ref<boolean>(false);
+  const isModalDiveOpen = ref<boolean>(false);
   const isMobile = ref<boolean>(useIsMobile());
 
   /* Actions */
@@ -24,7 +25,7 @@ export const useNavigationStore = defineStore("navigation", () => {
   }
 
   /**
-   * Toggle themodal Login open/close state
+   * Toggle modal Login open/close state
    * @param { 'OPEN'|'CLOSE'| null } action
    * @return { void }
    */
@@ -33,6 +34,18 @@ export const useNavigationStore = defineStore("navigation", () => {
     if (!action) isModalAuthOpen.value = !isModalAuthOpen.value;
 
     isModalAuthOpen.value = action === "OPEN" ? true : false;
+  }
+
+  /**
+   * Toggle modal dive open/close state
+   * @param { 'OPEN'|'CLOSE'| null } action
+   * @return { void }
+   */
+  function toggleModalDive(action: "OPEN" | "CLOSE" | null = null): void {
+    alertsStore.resetFieldsErrors();
+    if (!action) isModalDiveOpen.value = !isModalDiveOpen.value;
+
+    isModalDiveOpen.value = action === "OPEN" ? true : false;
   }
 
   /**
@@ -55,8 +68,10 @@ export const useNavigationStore = defineStore("navigation", () => {
   return {
     isMenuOpen,
     isModalAuthOpen,
+    isModalDiveOpen,
     toggleMenu,
     toggleModalAuth,
+    toggleModalDive,
     isMobile,
   };
 });

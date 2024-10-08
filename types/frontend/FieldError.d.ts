@@ -5,6 +5,9 @@ export interface IFieldError {
     | "password"
     | "isRememberMe"
     | "passwordVerify"
+    | "maxDepth"
+    | "totalTime"
+    | "date"
     | undefined;
   message?: string;
   rule?: string;
