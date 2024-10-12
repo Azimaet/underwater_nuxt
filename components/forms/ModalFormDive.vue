@@ -1,7 +1,6 @@
 <script setup lang="ts">
-import { useSignIn } from "~/composables/auth/useSignIn";
 import { useNavigationStore } from "@/stores/navigation";
-import type { IGasTank } from "~/types/GasTank";
+import type { IGasTank } from "@/types/GasTank";
 
 const navigationStore = useNavigationStore();
 const alertsStore = useAlertsStore();
@@ -16,9 +15,9 @@ const formDive = reactive({
 const addGasTank = async () => {
   formDive.gasTanks.push({
     gasMix: {
-      helium: 0,
       oxygen: 21,
       nitrogen: 79,
+      helium: 0,
     },
     pressureEnd: 50,
     pressureStart: 200,
@@ -79,6 +78,7 @@ const addGasTank = async () => {
                       <v-expansion-panel-title expand-icon="mdi-menu-down">
                         Item
                       </v-expansion-panel-title>
+
                       <v-expansion-panel-text>
                         <v-text-field
                           v-model="gasTank.pressureEnd"
@@ -94,6 +94,9 @@ const addGasTank = async () => {
                           placeholder="Start Dive Pressure"
                           variant="outlined"
                         />
+
+                        <!-- gas  -->
+                        <GasRange v-model:gasMix="gasTank.gasMix" />
                       </v-expansion-panel-text>
                     </v-expansion-panel>
                   </v-expansion-panels>
