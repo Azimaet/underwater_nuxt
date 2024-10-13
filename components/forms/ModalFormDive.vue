@@ -1,11 +1,13 @@
 <script setup lang="ts">
 import { useNavigationStore } from "@/stores/navigation";
 import type { IGasTank } from "@/types/GasTank";
+import type { IDive } from "@/types/Dive";
+import { useGasNameProvider } from "@/composables/useGasNameProvider";
 
 const navigationStore = useNavigationStore();
 const alertsStore = useAlertsStore();
 
-const formDive = reactive({
+const formDive = reactive<IDive>({
   date: null,
   maxDepth: null,
   totalTime: null,
@@ -76,7 +78,8 @@ const addGasTank = async () => {
                       :key="index"
                     >
                       <v-expansion-panel-title expand-icon="mdi-menu-down">
-                        Item
+                        {{ useGasNameProvider(gasTank.gasMix).title }}
+                        {{ useGasNameProvider(gasTank.gasMix).subtitle }}
                       </v-expansion-panel-title>
 
                       <v-expansion-panel-text>
@@ -123,8 +126,9 @@ const addGasTank = async () => {
             variant="tonal"
             type="submit"
             block
+            @click="usePostDive(formDive)"
           >
-            Log In
+            Add dive
           </v-btn>
         </v-form>
       </v-card>

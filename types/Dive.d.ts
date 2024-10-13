@@ -1,7 +1,6 @@
 export interface IDive {
-  date: Date;
-  totalTime: number;
-  maxDepth: number;
+  date: Date | null;
+  totalTime: number | null;
+  maxDepth: number | null;
   gasTanks: GasTank[];
-  owner?: string;
 }
