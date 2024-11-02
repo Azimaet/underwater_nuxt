@@ -13,30 +13,20 @@ export async function usePostDive(dive: IDive): Promise<void> {
   const headers = useRequestHeaders(["cookie"]);
 
   try {
-    await $fetch($api("/dive/add"), {
+    const response = await $fetch($api("/dive/add"), {
       headers,
       method: "POST",
       body: dive,
       credentials: "include",
     });
 
-    alertsStore.pushAlert({
-      title: "La plongée a été enregistrée.",
-      type: "success",
-      closable: true,
-      timestamp: Date.now(),
-    });
+    alertsStore.pushAlert("success", "response.message");
   } catch (error: any) {
+    console.log(error);
     if (error?.statusCode === 422) {
       alertsStore.fieldsErrors = error.data.errors;
     }
 
-    alertsStore.pushAlert({
-      title: "Erreur",
-      text: "Une erreur s'est produite, et la plongée n'a pas été enregistrée. Veuillez contacter un administrateur",
-      type: "error",
-      closable: true,
-      timestamp: Date.now(),
-    });
+    alertsStore.pushAlert("error", "");
   }
 }

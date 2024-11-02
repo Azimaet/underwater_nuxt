@@ -21,12 +21,7 @@ export async function useAuth(): Promise<void> {
       userStore.username = data.user.username;
       userStore.email = data.user.email;
 
-      alertsStore.pushAlert({
-        title: "Bienvenue " + data.user.username,
-        type: "success",
-        closable: true,
-        timestamp: Date.now(),
-      });
+      alertsStore.pushAlert("success", "Bienvenue " + data.user.username);
 
       navigateTo("/dashboard");
     }

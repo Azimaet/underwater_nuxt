@@ -18,15 +18,25 @@ export const useAlertsStore = defineStore("alerts", () => {
 
   /**
    * Push Alert Method
-   * @param { IAlert } alert
+   * @param { "error" | "warning" | "success" | "info" | undefined } type
+   * @param { string } message
    * @return { void }
    */
-  function pushAlert(alert: IAlert): void {
-    alertsBucket.value.push(alert);
+  function pushAlert(
+    type: "error" | "warning" | "success" | "info" | undefined,
+    message: string
+  ): void {
+    const timestamp = Date.now();
+    alertsBucket.value.push({
+      text: message,
+      type,
+      closable: true,
+      timestamp,
+    });
 
     // Set timer to auto deny alert after 8 seconds
     setTimeout(() => {
-      denyAlert(alert.timestamp);
+      denyAlert(timestamp);
     }, 8000);
   }
 

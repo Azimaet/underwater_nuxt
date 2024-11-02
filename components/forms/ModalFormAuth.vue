@@ -7,10 +7,15 @@ const alertsStore = useAlertsStore();
 const isPasswordVisible = ref(false);
 
 const credentials = ref({
-  email: null,
-  password: null,
-  isRememberMe: false,
+  email: null as string | null,
+  password: null as string | null,
+  isRememberMe: false as boolean | null,
 });
+
+const handleSignIn = () => {
+  console.log("hello");
+  useSignIn(credentials.value);
+};
 </script>
 
 <template>
@@ -25,7 +30,7 @@ const credentials = ref({
       >
         <div class="text-subtitle-1 text-medium-emphasis">Account</div>
 
-        <v-form ref="form" @submit.prevent>
+        <v-form ref="form">
           <v-text-field
             v-model="credentials.email"
             density="compact"

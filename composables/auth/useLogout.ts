@@ -17,13 +17,7 @@ export async function useLogout(): Promise<void> {
     });
 
     if (status.value !== "success") {
-      alertsStore.pushAlert({
-        title: "Erreur",
-        text: "La déconnexion a échoué.",
-        type: "error",
-        closable: true,
-        timestamp: Date.now(),
-      });
+      alertsStore.pushAlert("error", "response.message");
 
       return;
     }
@@ -33,12 +27,6 @@ export async function useLogout(): Promise<void> {
 
     navigateTo("/");
   } catch (e) {
-    alertsStore.pushAlert({
-      title: "Erreur",
-      text: "Veuillez contacter un administrateur",
-      type: "error",
-      closable: true,
-      timestamp: Date.now(),
-    });
+    alertsStore.pushAlert("error", "response.message");
   }
 }

@@ -34,12 +34,7 @@ export async function useSignIn(credentials: {
       userStore.username = data.value.user.username;
       userStore.email = data.value.user.email;
 
-      alertsStore.pushAlert({
-        title: "Bienvenue " + data.value.user.username,
-        type: "success",
-        closable: true,
-        timestamp: Date.now(),
-      });
+      alertsStore.pushAlert("success", "Bienvenue " + data.value.user.username);
 
       navigationStore.toggleModalAuth("CLOSE");
 
@@ -47,31 +42,11 @@ export async function useSignIn(credentials: {
     } else if (error?.value?.statusCode === 422 && status?.value === "error") {
       alertsStore.fieldsErrors = error?.value?.data?.errors;
     } else if (error?.value?.statusCode === 400 && status?.value === "error") {
-      alertsStore.pushAlert({
-        title: "Erreur",
-        text: error?.value?.data?.errors
-          .map((err: any) => err.message)
-          .join(", "),
-        type: "error",
-        closable: true,
-        timestamp: Date.now(),
-      });
+      alertsStore.pushAlert("error", "response.message");
     } else {
-      alertsStore.pushAlert({
-        title: "Erreur",
-        text: "Veuillez contacter un administrateur",
-        type: "error",
-        closable: true,
-        timestamp: Date.now(),
-      });
+      alertsStore.pushAlert("error", "response.message");
     }
   } catch (e) {
-    alertsStore.pushAlert({
-      title: "Erreur",
-      text: "Veuillez contacter un administrateur",
-      type: "error",
-      closable: true,
-      timestamp: Date.now(),
-    });
+    alertsStore.pushAlert("error", "response.message");
   }
 }

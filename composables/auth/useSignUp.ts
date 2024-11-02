@@ -42,23 +42,12 @@ export async function useSignUp(form: {
       credentials: "include",
     });
 
-    alertsStore.pushAlert({
-      title: "L'utilisateur a bien été créé.",
-      type: "success",
-      closable: true,
-      timestamp: Date.now(),
-    });
+    alertsStore.pushAlert("success", "");
   } catch (error: any) {
     if (error?.statusCode === 422) {
       alertsStore.fieldsErrors = error.data.errors;
     }
 
-    alertsStore.pushAlert({
-      title: "Erreur",
-      text: "Une erreur s'est produite, et l'utilisateur n'a pas été créé. Veuillez contacter un administrateur",
-      type: "error",
-      closable: true,
-      timestamp: Date.now(),
-    });
+    alertsStore.pushAlert("error", "response.message");
   }
 }

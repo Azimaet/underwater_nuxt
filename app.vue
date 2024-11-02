@@ -2,6 +2,7 @@
 import { useAuth } from "~/composables/auth/useAuth";
 
 onMounted(() => {
+  console.log("auth");
   useAuth();
 });
 </script>
