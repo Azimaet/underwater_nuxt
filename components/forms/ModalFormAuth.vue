@@ -30,7 +30,7 @@ const handleSignIn = () => {
       >
         <div class="text-subtitle-1 text-medium-emphasis">Account</div>
 
-        <v-form ref="form">
+        <v-form ref="form" @submit.prevent="useSignIn(credentials)">
           <v-text-field
             v-model="credentials.email"
             density="compact"
@@ -96,7 +96,6 @@ const handleSignIn = () => {
             variant="tonal"
             type="submit"
             block
-            @click="useSignIn(credentials)"
           >
             Log In
           </v-btn>

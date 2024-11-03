@@ -30,6 +30,18 @@ export async function useSignIn(credentials: {
       }
     );
 
+    const errors = error?.value?.data?.errors;
+
+    if (errors && errors.length > 0) {
+      if (errors[0]?.message && !errors[0]?.field) {
+        alertsStore.pushAlert("error", errors[0].message);
+      } else if (errors[0]?.field) {
+        alertsStore.fieldsErrors = errors;
+      }
+
+      return;
+    }
+
     if (data?.value?.user) {
       userStore.username = data.value.user.username;
       userStore.email = data.value.user.email;
@@ -39,14 +51,8 @@ export async function useSignIn(credentials: {
       navigationStore.toggleModalAuth("CLOSE");
 
       navigateTo("/dashboard");
-    } else if (error?.value?.statusCode === 422 && status?.value === "error") {
-      alertsStore.fieldsErrors = error?.value?.data?.errors;
-    } else if (error?.value?.statusCode === 400 && status?.value === "error") {
-      alertsStore.pushAlert("error", "response.message");
-    } else {
-      alertsStore.pushAlert("error", "response.message");
     }
   } catch (e) {
-    alertsStore.pushAlert("error", "response.message");
+    alertsStore.pushAlert("error", "Connexion impossible.");
   }
 }
