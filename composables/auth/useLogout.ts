@@ -1,4 +1,5 @@
 import { useAlertsStore } from "~/stores/alerts";
+import { useErrorsDispatcher } from "@/composables/helpers/useErrorsDispatcher";
 import { useUserStore } from "~/stores/user";
 
 /**
@@ -16,17 +17,11 @@ export async function useLogout(): Promise<void> {
       credentials: "include",
     });
 
-    if (status.value !== "success") {
-      alertsStore.pushAlert("error", "response.message");
-
-      return;
-    }
+    if (status.value !== "success") return;
 
     userStore.username = null;
     userStore.email = null;
-
+    alertsStore.pushAlert("success", "Vous êtes maintenant déconnecté.");
     navigateTo("/");
-  } catch (e) {
-    alertsStore.pushAlert("error", "response.message");
-  }
+  } catch (e) {}
 }

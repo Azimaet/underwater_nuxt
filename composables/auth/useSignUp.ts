@@ -1,4 +1,5 @@
 import { useAlertsStore } from "~/stores/alerts";
+import { useErrorsDispatcher } from "@/composables/helpers/useErrorsDispatcher";
 
 /**
  * SignUp User Method
@@ -14,12 +15,10 @@ export async function useSignUp(form: {
   const { $api } = useNuxtApp();
   const alertsStore = useAlertsStore();
 
-  console.log("omg");
-
   alertsStore.resetFieldsErrors();
 
   if (form.password !== form.passwordVerify) {
-    alertsStore.fieldsErrors = [
+    useErrorsDispatcher([
       {
         field: "password",
         message: "The password and passwordVerify mismatches",
@@ -30,7 +29,7 @@ export async function useSignUp(form: {
         message: "The password and passwordVerify mismatches",
         rule: "missmatch",
       },
-    ];
+    ]);
 
     return;
   }
@@ -42,12 +41,9 @@ export async function useSignUp(form: {
       credentials: "include",
     });
 
-    alertsStore.pushAlert("success", "");
-  } catch (error: any) {
-    if (error?.statusCode === 422) {
-      alertsStore.fieldsErrors = error.data.errors;
-    }
-
-    alertsStore.pushAlert("error", "response.message");
+    alertsStore.pushAlert("success", "Votre compte a bien été créé.");
+  } catch (err: any) {
+    console.log(err.data);
+    useErrorsDispatcher(err.data.messages);
   }
 }

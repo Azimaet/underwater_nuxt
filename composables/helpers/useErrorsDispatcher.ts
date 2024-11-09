@@ -1,7 +1,7 @@
 import { useAlertsStore } from "~/stores/alerts";
 
 /**
- * Errors Dispatcher Helper
+ * Errors Dispatcher Helper (Push errors below form fields or global alerts)
  * @param { any[] } errors
  * @return { void }
  */
@@ -15,7 +15,6 @@ export function useErrorsDispatcher(errors: any[]): void {
   }
 
   if (errors[0]?.message && !errors[0]?.field) {
-    console.log("if");
     alertsStore.pushAlert("error", errors[0].message);
   } else if (errors[0]?.field) {
     alertsStore.fieldsErrors = errors;
